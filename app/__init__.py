@@ -2,6 +2,7 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 
 from .config import Config
+from .auth import auth
 
 
 def create_app():
@@ -10,7 +11,9 @@ def create_app():
     # Initializing flask-bootstrap extension
     bootstrap = Bootstrap(app)
 
-    # Assigning the secret key to create a user session.
+    # Configuration of the app
     app.config.from_object(Config)
+
+    app.register_blueprint(auth)
     
     return app

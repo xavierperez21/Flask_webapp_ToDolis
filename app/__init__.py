@@ -14,6 +14,7 @@ def create_app():
     # Configuration of the app
     app.config.from_object(Config)
 
+    # Registering the Blueprints
     app.register_blueprint(auth)
     
     return app

@@ -1,2 +1,7 @@
 {
+    "python.defaultInterpreterPath": "/home/xavier/Documents/Cursos_Platzi/flask_course/platzi-flask/venv/bin/python",
+    "python.linting.pylintPath": "/home/xavier/Documents/Cursos_Platzi/flask_course/platzi-flask/venv/bin/pylint",
+    "python.autoComplete.extraPaths": [
+        "/home/xavier/Documents/Cursos_Platzi/flask_course/platzi-flask/venv/lib/python3.7/site-packages"
+    ]
 }

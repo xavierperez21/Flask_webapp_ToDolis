@@ -3,11 +3,10 @@ import unittest
 
 from app import create_app
 from app.forms import LoginForm
+from app.firestore_service import get_users, get_todos
 
 # Creating a new instance of Flask
 app = create_app()
-
-todos = ['Comprar café', 'Enviar solicitud', 'Terminar el curso de flask']
 
 #---------- CLI Commands ----------------------
 @app.cli.command()
@@ -44,12 +43,11 @@ def index():
     return response
 
 
+#----------- Routes --------------------
 # Decorator to indicate the route where this function will be executed.
-@app.route('/hello', methods=['GET', 'POST'])
+@app.route('/hello', methods=['GET'])
 def hello():
     user_ip = session.get('user_ip')
-
-    login_form = LoginForm()
 
     # Once the form is validated, we get the username after the redirection
     username = session.get('username')
@@ -58,17 +56,14 @@ def hello():
     # Creating a new variable "context" which is a dictionary that will contain all the variables we want to pass to the template
     context = {
         'user_ip': user_ip,
-        'todos': todos,
-        'login_form': login_form,
+        'todos': get_todos(user_id=username),
         'username': username
     }
 
-    if login_form.validate_on_submit():
-        username = login_form.username.data     # Getting the username from the form
-        session['username'] = username
+    users = get_users()
 
-        flash('Nombre de usuario registrado con éxito!')
-
-        return redirect(url_for('index'))
+    for user in users:
+        print(user.id)
+        print(user.to_dict()['password'])
 
     return render_template('hello.html', **context) # Expanding the dictionary using **context.

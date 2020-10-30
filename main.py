@@ -1,5 +1,6 @@
-from flask import request, make_response, redirect, render_template, session, url_for, flash
 import unittest
+from flask import request, make_response, redirect, render_template, session, url_for, flash
+from flask_login import login_required, current_user
 
 from app import create_app
 from app.forms import LoginForm
@@ -26,6 +27,8 @@ def internal_server_error(error):
     return render_template('500.html', error=error)
 
 
+#----------- Routes --------------------
+
 @app.route('/')
 def index():
     # Raise a 500 server error: raise(Exception('500 error'))
@@ -43,15 +46,12 @@ def index():
     return response
 
 
-#----------- Routes --------------------
 # Decorator to indicate the route where this function will be executed.
 @app.route('/hello', methods=['GET'])
+@login_required     # This decorator must be after the route decorator. If there's no a current_user, this route is blocked
 def hello():
     user_ip = session.get('user_ip')
-
-    # Once the form is validated, we get the username after the redirection
-    username = session.get('username')
-    # print(username)
+    username = current_user.id  # Once the form is validated, we get the username after the redirection
 
     # Creating a new variable "context" which is a dictionary that will contain all the variables we want to pass to the template
     context = {
@@ -59,11 +59,5 @@ def hello():
         'todos': get_todos(user_id=username),
         'username': username
     }
-
-    users = get_users()
-
-    for user in users:
-        print(user.id)
-        print(user.to_dict()['password'])
 
     return render_template('hello.html', **context) # Expanding the dictionary using **context.

@@ -18,3 +18,8 @@ def get_user(user_id):
 
 def get_todos(user_id):
     return db.collection('users').document(user_id).collection('todos').get()
+
+
+def user_put(user_data):
+    user_ref = db.collection('users').document(user_data.username)    # Creating automatically a new user document
+    user_ref.set({ 'password': user_data.password })    # Finishing on register the new user by assing the parameter password with the hashed password

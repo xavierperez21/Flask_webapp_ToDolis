@@ -3,8 +3,8 @@ from flask import request, make_response, redirect, render_template, session, ur
 from flask_login import login_required, current_user
 
 from app import create_app
-from app.forms import LoginForm
-from app.firestore_service import get_users, get_todos
+from app.forms import ToDoForm
+from app.firestore_service import get_users, get_todos, put_todo
 
 # Creating a new instance of Flask
 app = create_app()
@@ -47,17 +47,26 @@ def index():
 
 
 # Decorator to indicate the route where this function will be executed.
-@app.route('/hello', methods=['GET'])
+@app.route('/hello', methods=['GET', 'POST'])
 @login_required     # This decorator must be after the route decorator. If there's no a current_user, this route is blocked
 def hello():
     user_ip = session.get('user_ip')
     username = current_user.id  # Once the form is validated, we get the username after the redirection
-
+    todo_form = ToDoForm()
+    
     # Creating a new variable "context" which is a dictionary that will contain all the variables we want to pass to the template
     context = {
         'user_ip': user_ip,
         'todos': get_todos(user_id=username),
-        'username': username
+        'username': username,
+        'todo_form': todo_form
     }
+
+    if todo_form.validate_on_submit():
+        put_todo(user_id=username, description=todo_form.description.data)
+
+        flash('Todo succesfully registered')
+
+        return redirect(url_for('hello'))
 
     return render_template('hello.html', **context) # Expanding the dictionary using **context.

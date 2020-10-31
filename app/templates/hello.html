@@ -12,11 +12,20 @@
         <h1>Bienvenido, {{ username | capitalize }}</h1>
     {% endif %}
 
+
     {% if user_ip %}
         <h3>Tu IP es {{ user_ip }}</h3>
     {% else %}
         <a href="{{ url_for('index') }}">Ir a inicio</a>
     {% endif %}
+
+
+    <div class="container">
+        <h2>Crea una nueva tarea</h2>
+
+        {{ wtf.quick_form(todo_form) }}
+    </div>
+
 
     <ul>
         {% for todo in todos %}

@@ -60,6 +60,10 @@ def login():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+
+    if current_user.is_authenticated:
+        return redirect(url_for('hello'))
+        
     signup_form = LoginForm()
     context = {
         'signup_form': signup_form

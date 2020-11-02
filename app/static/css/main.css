@@ -2,8 +2,57 @@ html * {
     font-family: sans-serif;
 }
 
-img {
-    max-width: 30px;
+.icon_navbar{
+    width: 60px;
+}
+
+.navbar {
+    margin: 0 !important;
+}
+
+.container__login {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 25% 25% 25% 25%;
+    height: calc(100vh - 50px);
+}
+
+.login-title {
+    text-align: initial;
+    margin-top: 50px;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    margin: auto 0;
+}
+
+.container__login-img {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
+
+.container__login-img img {
+    width: 90%;
+}
+
+
+.container__login-form {
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+.container-form {
+    width: 100%;
+}
+
+.form {
+    width: 60%;
 }
 
 .welcome-title {
@@ -31,4 +80,70 @@ img {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 50%;
+}
+
+@media only screen and (max-width: 768px){
+    .welcome-title {
+        font-size: 3rem;
+    }
+
+    .create-title {
+        font-size: 2.3rem;
+    }
+
+    .list_to-dos {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .container__login {
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        height: calc(100vh - 50px);
+    }
+
+    .login-title {
+        text-align: center;
+        margin-top: 50px;
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        font-size: 3rem;
+    }
+    
+    .container__login-img {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        display: flex;
+        justify-content: center;
+    }
+    
+    
+    .container__login-img img {
+        width: 60%;
+        text-align: center;
+    }
+    
+    
+    .container__login-form {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 3;
+        grid-row-end: 5;
+    }
+
+    .form {
+        width: 80%;
+    }
+}
+
+
+@media only screen and (max-width: 500px){
+    .login-title {
+        font-size: 2rem;
+    }
 }

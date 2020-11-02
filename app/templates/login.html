@@ -3,12 +3,19 @@
 
 {% block title %}
     {{ super() }}
-    Login
+    Log In
 {% endblock %}
 
 {% block content %}
-    <h1 style="text-align: center; margin: 50px 0;">Log In</h1>
-    <div class="container">
-        {{ wtf.quick_form(login_form) }}
+    <div class="container__login">
+        <h1 class="login-title">Manage your time by Creating a To-do List!</h1>
+        <div class="container__login-img">
+            <img class="check_list" src="{{ url_for('static', filename='images/check_list.png') }}" alt="Check List">
+        </div>
+        <div class="container__login-form">
+            <div class="container-form">
+                {{ wtf.quick_form(login_form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}

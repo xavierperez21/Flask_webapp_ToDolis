@@ -3,19 +3,19 @@ from wtforms.fields import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
-    username = StringField('Nombre de usuario', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Enviar')
+    submit = SubmitField('Log In')
 
 
 class ToDoForm(FlaskForm):
-    description = StringField('Descripción', validators=[DataRequired()])
-    submit = SubmitField('Crear')
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Create!')
 
 
-class DeleteTodoForm(FlaskForm):
-    submit = SubmitField('Delete')
+# class DeleteTodoForm(FlaskForm):
+#     submit = SubmitField('Delete')
 
 
-class UpdateTodoForm(FlaskForm):
-    submit = SubmitField('Update')
+# class UpdateTodoForm(FlaskForm):
+#     submit = SubmitField('Update')

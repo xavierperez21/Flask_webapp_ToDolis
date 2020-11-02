@@ -9,27 +9,33 @@
 
 {% block content %}
     {% if username %}
-        <h1>Bienvenido, {{ username | capitalize }}</h1>
+        <h1 class="welcome-title">Welcome, {{ username | title }}</h1>
     {% endif %}
 
 
-    {% if user_ip %}
+    <!-- {% if user_ip %}
         <h3>Tu IP es {{ user_ip }}</h3>
     {% else %}
         <a href="{{ url_for('index') }}">Ir a inicio</a>
-    {% endif %}
+    {% endif %} -->
 
 
     <div class="container">
-        <h2>Crea una nueva tarea</h2>
+        <h2>Create a new To-do</h2>
 
         {{ wtf.quick_form(todo_form) }}
     </div>
 
-
-    <ul class="list-group">
-        {% for todo in todos %}
-            {{ macros.render_todo(todo, delete_form, update_form) }}
-        {% endfor %}
-    </ul>
+    {% if todos %}
+    
+        <div class="container_to-dos">
+            <div class="list_to-dos">
+                {% for todo in todos %}
+                    {{ macros.render_todo(todo) }}
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <h3 style="text-align: center;">You don't have to-dos yet :/</h3>
+    {% endif %}
 {% endblock %}

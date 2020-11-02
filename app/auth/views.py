@@ -38,17 +38,20 @@ def login():
                 user = UserModel(user_data)
                 
                 # Login our User in flask_login, so flask_login knows that there's a current user
+                # From here, we send an instance of UserModel that flask_login to later use the method...
+                # ... 'get_id' which will send the id of the user to the login_manager.user_loader so ...
+                # ... flask_login creates a current user and the route /hello gets unblocked.
                 login_user(user)
                 
-                flash('Bienvenido de nuevo!')
+                flash('Welcome again!')
 
                 redirect(url_for('hello'))
             
             else:
-                flash('La información no coincide :(')
+                flash("The information doesn't match :(")
 
         else:
-            flash('El usuario no existe')
+            flash("The user doesn't exists")
 
         return redirect(url_for('index'))
 
@@ -78,12 +81,12 @@ def signup():
             # Login after we register the user
             user = UserModel(user_data)
             login_user(user)
-            flash('Bienvenido!')
+            flash('Welcome!')
 
             return redirect(url_for('hello'))
 
         else:
-            flash('El usuario ya existe!')
+            flash('The user already exists!')
 
     return render_template('signup.html', **context)
 
@@ -92,6 +95,6 @@ def signup():
 @login_required
 def logout():
     logout_user()   # flask_login makes logout of the current user
-    flash('Regresa pronto')
+    flash('Come back soon!')
 
     return redirect(url_for('auth.login'))

@@ -3,7 +3,7 @@ from flask import request, make_response, redirect, render_template, session, ur
 from flask_login import login_required, current_user
 
 from app import create_app
-from app.forms import ToDoForm, DeleteTodoForm, UpdateTodoForm
+from app.forms import ToDoForm
 from app.firestore_service import get_todos, put_todo, delete_todo, update_todo
 
 # Creating a new instance of Flask
@@ -50,20 +50,20 @@ def index():
 @app.route('/hello', methods=['GET', 'POST'])
 @login_required     # This decorator must be after the route decorator. If there's no a current_user, this route is blocked
 def hello():
-    user_ip = session.get('user_ip')
+    # user_ip = session.get('user_ip')
     username = current_user.id  # Once the form is validated, we get the username after the redirection
     todo_form = ToDoForm()      # To create to-dos
-    delete_form = DeleteTodoForm()  # To delete to-dos
-    update_form = UpdateTodoForm()
+    # delete_form = DeleteTodoForm()  # To delete to-dos
+    # update_form = UpdateTodoForm()
     
     # Creating a new variable "context" which is a dictionary that will contain all the variables we want to pass to the template
     context = {
-        'user_ip': user_ip,
+        # 'user_ip': user_ip,
         'todos': get_todos(user_id=username),
         'username': username,
         'todo_form': todo_form,
-        'delete_form': delete_form,
-        'update_form': update_form,
+        # 'delete_form': delete_form,
+        # 'update_form': update_form,
     }
 
     if todo_form.validate_on_submit():
@@ -77,7 +77,7 @@ def hello():
 
 
 # This is a dynamic route
-@app.route('/todos/delete/<todo_id>', methods=['POST'])
+@app.route('/todos/delete/<todo_id>', methods=['GET','POST'])
 def delete(todo_id):
     user_id = current_user.id
     delete_todo(user_id=user_id, todo_id=todo_id)
@@ -86,10 +86,11 @@ def delete(todo_id):
 
 
 # This is a dynamic route
-@app.route('/todos/update/<todo_id>/<int:done>', methods=['POST'])
+@app.route('/todos/update/<todo_id>/<int:done>', methods=['GET','POST'])
 def update(todo_id, done):
     user_id = current_user.id
 
+    # Changing the value of "done" that we received from macros.html when the form update was submitted
     update_todo(user_id=user_id, todo_id=todo_id, done=done)
 
     print(done)

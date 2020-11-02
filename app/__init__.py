@@ -16,6 +16,7 @@ login_manager.login_view = 'auth.login'
 
 @login_manager.user_loader
 def load_user(username):
+    print(username)
     return UserModel.query(username)
 
 

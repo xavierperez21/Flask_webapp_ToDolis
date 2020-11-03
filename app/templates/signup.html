@@ -7,8 +7,15 @@
 {% endblock %}
 
 {% block content %}
-    <h1 style="text-align: center; margin: 50px 0;">Sign Up!</h1>
-    <div class="container">
-        {{ wtf.quick_form(signup_form) }}
+    <div class="container__login">
+        <h1 class="login-title">Sign Up</h1>
+        <div class="container__login-img">
+            <img class="check_list" src="{{ url_for('static', filename='images/register_img.png') }}" alt="Check List">
+        </div>
+        <div class="container__login-form">
+            <div class="container-form">
+                {{ wtf.quick_form(signup_form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}
